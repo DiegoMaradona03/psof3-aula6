@@ -1,5 +1,3 @@
-import './verificacao.js';
-
 const usuario = JSON.parse(localStorage.getItem('professor'));
 const lista = document.getElementById('listaTurmas');
 const btnNovaTurma = document.getElementById('btnNovaTurma');
@@ -19,17 +17,12 @@ async function carregarTurmas() {
         `;
         lista.appendChild(li);
 
-        const btnVer = li.querySelector('.ver');
-        const btnEditar = li.querySelector('.editar');
-        const btnExcluir = li.querySelector('.excluir');
-        const spanNome = li.querySelector('.nome-turma');
-
-        btnVer.addEventListener('click', () => {
+        li.querySelector('.ver').addEventListener('click', () => {
             localStorage.setItem('turmaSelecionada', JSON.stringify({ id: turma.id, nome: turma.nome }));
             window.location.href = './atividade.html';
         });
 
-        btnEditar.addEventListener('click', async () => {
+        li.querySelector('.editar').addEventListener('click', async () => {
             const novoNome = prompt('Digite o novo nome da turma:', turma.nome);
             if (!novoNome || novoNome.trim() === '') return;
 
@@ -41,7 +34,7 @@ async function carregarTurmas() {
                 });
 
                 if (response.ok) {
-                    spanNome.textContent = novoNome;
+                    li.querySelector('.nome-turma').textContent = novoNome;
 
                     const stored = localStorage.getItem('turmaSelecionada');
                     if (stored) {
@@ -53,34 +46,27 @@ async function carregarTurmas() {
                     }
 
                     turma.nome = novoNome;
-
-                    alert('Turma atualizada com sucesso!');
                 } else {
-                    const result = await response.json().catch(() => ({}));
-                    alert(result.error || 'Erro ao atualizar turma.');
+                    await response.json().catch(() => {});
                 }
             } catch (err) {
                 console.error('Erro ao atualizar turma:', err);
-                alert('Erro de conexão ao atualizar turma.');
             }
         });
 
-        btnExcluir.addEventListener('click', async () => {
+        li.querySelector('.excluir').addEventListener('click', async () => {
             const confirmar = confirm('Tem certeza que deseja excluir esta turma?');
             if (!confirmar) return;
 
             try {
                 const respDel = await fetch(`http://localhost:3765/turmas/${turma.id}`, { method: 'DELETE' });
                 if (respDel.ok) {
-                    alert('Turma excluída com sucesso!');
                     li.remove();
                 } else {
-                    const result = await respDel.json().catch(() => ({}));
-                    alert(result.error || 'Erro ao excluir turma.');
+                    await respDel.json().catch(() => {});
                 }
             } catch (err) {
                 console.error('Erro ao excluir turma:', err);
-                alert('Erro de conexão ao excluir turma.');
             }
         });
     });
@@ -100,12 +86,10 @@ btnNovaTurma.addEventListener('click', async () => {
         if (resp.ok) {
             await carregarTurmas();
         } else {
-            const result = await resp.json().catch(() => ({}));
-            alert(result.error || 'Erro ao adicionar turma.');
+            await resp.json().catch(() => {});
         }
     } catch (err) {
         console.error('Erro ao criar turma:', err);
-        alert('Erro de conexão ao criar turma.');
     }
 });
 
