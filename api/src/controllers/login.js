@@ -12,8 +12,6 @@ const login = async (req, res) => {
         if (!professor) {
             return res.status(400).json({ error: 'Usuário ou senha inválidos' });
         }
-
-        // Retorna os dados do professor logado
         return res.json(professor);
     } catch (err) {
         console.error('Erro no login:', err);

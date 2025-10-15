@@ -21,14 +21,14 @@ routes.post('/turmas', Turma.create);
 routes.get('/turmas', Turma.read);
 routes.get('/turmas/:id', Turma.readOne);
 routes.get('/turmas/professor/:professorId', Turma.readByProfessor);
-routes.patch('/turmas/:id', Professor.update);
+routes.patch('/turmas/:id', Turma.update);
 routes.delete('/turmas/:id', Turma.remove);
 
 routes.post('/atividades', Atividade.create);
 routes.get('/atividades', Atividade.read);
 routes.get('/atividades/:id', Atividade.readOne);
 routes.get('/atividades/turma/:turmaId', Atividade.readByTurma);
-routes.patch('/atividades/:id', Professor.update);
+routes.patch('/atividades/:id', Atividade.update);
 routes.delete('/atividades/:id', Atividade.remove);
 
 module.exports = routes;
