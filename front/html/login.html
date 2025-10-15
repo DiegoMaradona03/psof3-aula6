@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="../css/login.css">
+<body>
+
+<main class="login-container">
+    <h1>Acesse sua conta</h1>
+    <form class="login-form">
+        <label for="email">E-mail</label>
+        <input type="text" id="email" name="email" required>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+        <i class="fa-solid fa-eye toggle-olho" onclick="toggleSenha(this)"></i>
+
+        <button type="submit" class="btn-login">Login</button>
+    </form>
+</main>
+
+<script type="module" src="../js/login.js"></script>
+</body>
+</html>
